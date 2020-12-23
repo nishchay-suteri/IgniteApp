@@ -17,16 +17,21 @@ const actionCreator = () => async (dispatch) => {
 */
 
 import axios from "axios";
-import { popularGamesURL } from "../api";
+import { popularGamesURL, upcomingGamesURL, newGamesURL } from "../api";
 
 // Action Creator
 export const loadGames = () => async (dispatch) => {
     // Fetch
     const popularGames = await axios.get(popularGamesURL());
+    const upcomingGames = await axios.get(upcomingGamesURL());
+    const newGames = await axios.get(newGamesURL());
+
     dispatch({
         type: "FETCH_GAMES",
         payload: {
-            popular: popularGames.data.results,
+            popularGames: popularGames.data.results,
+            newGames: newGames.data.results,
+            upcomingGames: upcomingGames.data.results,
         },
     });
 };
